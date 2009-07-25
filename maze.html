@@ -1,0 +1,132 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Maze Generator &amp; Solver</title>
+<style type="text/css">
+html, address, blockquote,
+body, dd, dl, dt, fieldset,
+form, frame, frameset, noframes, noscript
+center, dir, hr, menu, select, button,
+pre, input, textarea { font:11px Verdana; color:#666666 }
+body { text-align:center; margin:0px }
+a { }
+a:hover { }
+:link, :visited { text-decoration:none }
+
+h1, h2, h3, h4 { margin:0px; padding:0px }
+h1 { font-family:"Trebuchet MS"; font-size:24px }
+h2 { font-size:10px; font-weight:normal; letter-spacing:1px; padding:5px 10px; }
+form { padding:0px; margin:0px }
+fieldset { padding:10px; margin:0px; }
+legend { padding-bottom:5px }
+label { line-height:17px; width:90px; display:block; float:left; clear:left }
+button { margin:0px; float:right }
+.fields { float:left; width:235px }
+
+#container { /*width:770px;*/ margin:20px auto; text-align:left }
+#left { float:left; width:315px; padding:0px 15px; border-right:1px solid #CCCCCC; }
+#right { float:left; width:300px; padding:0px 15px; }
+#title { background-color:#F2F2F2; border:1px solid #CCCCCC; padding:10px; margin-bottom:0px }
+</style>
+<script type="text/javascript" src="maze.js"></script>
+</head>
+<body onload="generateMaze()">
+<div id="container">
+  <div id="left">
+    <div id="title">
+      <h1>Maze Generator &amp; Solver</h1>
+    </div>
+    <h2>by Noor Allah Al-Hiraki</h2>
+    <form>
+      <fieldset>
+      <legend>Generation Options&nbsp;</legend>
+      <div class="fields">
+        <div>
+          <label>Maze Width:</label>
+          <select name="mazeW" id="mazeW">
+            <option value="10" selected="selected">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+          </select>
+        </div>
+        <div>
+          <label>Maze Height:</label>
+          <select name="mazeH" id="mazeH">
+            <option value="10" selected="selected">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+            <option value="50">50</option>
+            <option value="60">60</option>
+            <option value="70">70</option>
+          </select>
+        </div>
+        <div>
+          <label>Cell Size:</label>
+          <select name="cellSize" id="cellSize">
+            <option value="10" selected="selected">10</option>
+            <option value="12">12</option>
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+          </select>
+        </div>
+      </div>
+      <button onclick="generateMaze();return false;">Build</button>
+      </fieldset>
+      <fieldset>
+      <legend>Solving Options&nbsp;</legend>
+      <div class="fields">
+        <div>
+          <label>Algorithm:</label>
+          <select name="algorithm" id="algorithm" onchange="problem.clearSolution();">
+            <option value="bfs" selected="selected">Breadth First Search</option>
+            <option value="dfs">Depth First Search</option>
+            <option value="gbfs">Greedy Search</option>
+          </select>
+        </div>
+        <div>
+          <label>Start Cell:</label>
+          <input name="init" id="init" size="5" maxlength="100" type="text" value="" disabled="disabled" />
+          <span>(Left Click)</span>
+        </div>
+        <div>
+          <label>End Cell:</label>
+          <input name="goal" id="goal" size="5" maxlength="100" type="text" value="" disabled="disabled" />
+          <span>(Right Click)</span>
+        </div>
+      </div>
+      <button onclick="solve(problem, document.getElementById('algorithm').value);return false;">Solve</button>
+      </fieldset>
+      <fieldset>
+      <legend>Solution&nbsp;</legend>
+      <div class="fields" id="solution">
+        <div>
+          <label>Execution:</label>
+          <div id="time"></div>
+        </div>
+        <div>
+          <label>Expanded:</label>
+          <div id="expanded"></div>
+        </div>
+        <div>
+          <label>Actions:</label>
+        </div>
+        <div style="clear:both;padding-top:5px" id="actions"></div>
+      </div>
+      <button onclick="problem.clearSolution();return false;">Clear</button>
+      </fieldset>
+    </form>
+  </div>
+  <div id="right">
+    <div id="maze"></div>
+  </div>
+</div>
+</body>
+</html>
